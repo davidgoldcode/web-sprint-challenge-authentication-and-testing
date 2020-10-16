@@ -3,6 +3,14 @@ const bcryptjs = require("bcryptjs");
 
 const Users = require("./users-model.js");
 
+router.get("/", (req, res) => {
+  Users.getAll()
+    .then((users) => {
+      res.status(200).json({ users });
+    })
+    .catch((err) => console.log(err));
+});
+
 router.post("/register", (req, res) => {
   const credentials = req.body;
   const rounds = Number(process.env.HASH_ROUNDS) || 6;
